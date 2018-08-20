@@ -6,7 +6,7 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 rootdir = os.path.dirname(dirname)
 sys.path.append(rootdir)
 
-import calculator
+import mathematics
 
 class TestCalculatorClass(object):
 
@@ -19,7 +19,7 @@ class TestCalculatorClass(object):
         expectedResult = 15.5
 
         # act 
-        actualResult = calculator.add(self.firstNumber, self.secondNumber)
+        actualResult = mathematics.add(self.firstNumber, self.secondNumber)
         
         # assert
         assert expectedResult == actualResult
@@ -30,7 +30,7 @@ class TestCalculatorClass(object):
         expectedResult = 4.5
 
         # act 
-        actualResult = calculator.min(self.firstNumber, self.secondNumber)
+        actualResult = mathematics.min(self.firstNumber, self.secondNumber)
             
         # assert
         assert expectedResult == actualResult
@@ -42,7 +42,7 @@ class TestCalculatorClass(object):
 
         # act 
         # checks up to 9 decimal place accuracy
-        actualResult = round(calculator.divide(self.firstNumber, self.secondNumber), 9)
+        actualResult = round(mathematics.divide(self.firstNumber, self.secondNumber), 9)
             
         # assert
         assert expectedResult == actualResult
@@ -52,7 +52,7 @@ class TestCalculatorClass(object):
         expectedResult = 55
 
         # act 
-        actualResult = calculator.multiply(self.firstNumber, self.secondNumber)
+        actualResult = mathematics.multiply(self.firstNumber, self.secondNumber)
 
         # assert
         assert expectedResult == actualResult
