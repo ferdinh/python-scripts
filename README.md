@@ -9,6 +9,14 @@ Useful scripts. More coming soon.
 * Text File Palindrome Checker
 * Simple Calculator (Addition, Subtraction, Multiplication, Division)
 
+# Requirements
+This project requires a minimum version of python 3.6.
+
+## Dependencies
+* pytest
+
+You can install all the dependencies by running `pip install -r requirements.txt`.
+
 # Testing
 
 This project uses __pytest__ as the testing framework.
