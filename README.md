@@ -1,5 +1,5 @@
 # Scripts
-Useful scripts. More coming soon. 
+Scripts written in python.
 
 [![Build Status](https://travis-ci.org/ferdinh/python-scripts.svg?branch=master)](https://travis-ci.org/ferdinh/python-scripts)
 
