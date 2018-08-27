@@ -1,11 +1,11 @@
 # checks if a word is a palindrome
 
 # palindrome function
-def palindrome(str):
-    reversedWord = str[::-1]
+def palindrome(word):
+    reversedWord = word[::-1]
 
     # comparison of each word
-    if str.lower() != reversedWord.lower():
+    if word.lower() != reversedWord.lower():
         return False
     
     return True
