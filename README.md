@@ -21,8 +21,8 @@ You can install all the dependencies by running `pip install -r requirements.txt
 
 This project uses __pytest__ as the testing framework.
 
-To run the tests, you need to install pytest module into your machine using the command `pip install -U pytest`.
-To install the module into specific version such as python 3.6, you may use `python3.6 -m pip install pytest` or suffix the targeted version.
+To run the tests, you need to install pytest module into your machine using the command `pip install -U pytest` or refer to "Dependecies" section.
+To install the module into specific version such as python 3.6, you can use `python3.6 -m pip install pytest` or suffix the targeted version.
 
 After installing, you can check the version installed using `pytest --version`.
 
