@@ -30,13 +30,5 @@ def main():
 
     print("There are", counter, "palindromes in this list of words")
 
-    # old version
-    # str = input("Enter the word to check: ")
-    # pal = palindrome(str)
-        #if pal == True:
-            #print("Word is a palindrome")
-        #else:
-            #print("Word is not a palindrome")
-
 if __name__ == "__main__":
     main()
