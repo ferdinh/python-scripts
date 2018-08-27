@@ -23,9 +23,9 @@ def main():
 
     # iterates over every word in the txt file
     for word in content:
-        num = palindrome(word)
+        isPalindrome = palindrome(word)
 
-        if num == True:
+        if isPalindrome:
             counter += 1
 
     print("There are", counter, "palindromes in this list of words")
