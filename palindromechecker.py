@@ -1,7 +1,7 @@
 # checks if a word is a palindrome
 
 # palindrome function
-def palindrome(word):
+def palindrome(word: str) -> bool:
     reversedWord = word[::-1]
 
     # comparison of each word
