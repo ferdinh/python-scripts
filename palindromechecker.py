@@ -35,7 +35,7 @@ def palindrome_from(path: pathlib.Path) -> int:
 
 
 def main():
-    filename = input("Enter list of words to check for palindrome: ")
+    filename = input("Path to file: ")
 
     num_palindrome = palindrome_from(filename)
 
