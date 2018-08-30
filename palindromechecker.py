@@ -1,24 +1,26 @@
 import pathlib
-# checks if a word is a palindrome
-
-# palindrome function
-
 
 def palindrome(word: str) -> bool:
+    """
+    Check if a single word is a palindrome.
+    """
     reversedWord = word[::-1]
 
-    # comparison of each word
+    # comparison of word
     if word.lower() != reversedWord.lower():
         return False
 
     return True
 
 
-def palindrome_from(path: pathlib.Path) -> int:
-    counter = 0  # final value goes here
+def palindrome_from(filepath: pathlib.Path) -> int:
+    """
+    Open a text file and checks for palindrome.
+    """
+    num_of_palindrome = 0
 
     # reads each line in the list of files
-    with open(path) as file:
+    with open(filepath) as file:
         content = file.readlines()
 
     # removes whitespace
@@ -29,9 +31,9 @@ def palindrome_from(path: pathlib.Path) -> int:
         isPalindrome = palindrome(word)
 
         if isPalindrome:
-            counter += 1
+            num_of_palindrome += 1
 
-    return counter
+    return num_of_palindrome
 
 
 def main():
