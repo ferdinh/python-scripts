@@ -18,8 +18,8 @@ def palindrome_from(path: pathlib.Path) -> int:
     counter = 0  # final value goes here
 
     # reads each line in the list of files
-    with open(path) as f:
-        content = f.readlines()
+    with open(path) as file:
+        content = file.readlines()
 
     # removes whitespace
     content = [x.strip() for x in content]
