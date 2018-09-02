@@ -93,3 +93,19 @@ class TestCalculatorClass(object):
         # assert
         assert result_case_1 == expected_case_1
         assert result_case_2 == expected_case_2
+
+    def test_is_number(self):
+        # Arrange
+        expected_case_1 = True
+        number_case_1 = 0.0
+
+        expected_case_2 = False
+        str_case_2 = "Hello"
+
+        # Act
+        result_case_1 = mathematics.is_number(number_case_1)
+        result_case_2 = mathematics.is_number(str_case_2)
+
+        # Assert
+        assert result_case_1 == expected_case_1
+        assert result_case_2 == expected_case_2
