@@ -8,8 +8,6 @@ def evaluate(expr: str) -> float:
 
     return result
     
-
-
 def parse_to_rpn(expr: str) -> list:
     """
     Converts infix notation to Reverse Polish  Notation.
@@ -113,9 +111,12 @@ def evaluate_rpn(rpn: list) -> float:
 
     return result
 
-def is_number(s):
+def is_number(string:str) -> bool:
+    """
+    Determine if the current string is a number.
+    """
     try:
-        float(s)
+        float(string)
         return True
     except ValueError:
         pass
