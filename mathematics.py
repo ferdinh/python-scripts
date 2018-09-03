@@ -28,10 +28,7 @@ def parse_to_rpn(expr: str) -> list:
         except ValueError:
             pass
 
-        is_operator = (token == "+" or token ==
-                       "-" or token == "/" or token == "*")
-
-        if is_operator:
+        if is_operator(token):
 
             operatorStackSize = len(operator_stack)
 
@@ -47,7 +44,7 @@ def parse_to_rpn(expr: str) -> list:
                 # Then add the current operator to the operator stack
                 # Else, add the operator to the stack
                 if (token == "+" or token == "-"):
-                    if(lastOperator == "*" or lastOperator == "/" or lastOperator == "+" or lastOperator == "-"):
+                    if(is_operator(lastOperator)):
                         while operatorStackSize:
                             output_stack.append(operator_stack.pop())
                             operatorStackSize -= 1
