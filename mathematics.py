@@ -30,9 +30,6 @@ def parse_to_rpn(expression: str) -> list:
 
         elif is_operator(token):
 
-            # Check if operator stack is empty.
-            operator_stack_empty = operator_stack_size == 0
-
             if not operator_stack:
                 operator_stack.append(token)
             else:
