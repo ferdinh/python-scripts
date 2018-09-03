@@ -9,14 +9,14 @@ def evaluate(expr: str) -> float:
     return result
 
 
-def parse_to_rpn(expr: str) -> list:
+def parse_to_rpn(expression: str) -> list:
     """
     Converts infix notation to Reverse Polish Notation (RPN).
     """
     output_stack = list()
     operator_stack = list()
 
-    tokens = expr.split(" ")
+    tokens = expression.split(" ")
 
     for token in tokens:
         buffer = 0.0
@@ -30,24 +30,24 @@ def parse_to_rpn(expr: str) -> list:
 
         if is_operator(token):
 
-            operatorStackSize = len(operator_stack)
+            operator_stack_size = len(operator_stack)
 
             # Check if operator stack is empty.
-            operatorStackEmpty = operatorStackSize == 0
+            operator_stack_empty = operator_stack_size == 0
 
-            while operatorStackSize > 0:
+            while operator_stack_size > 0:
                 # Get the last operator from the stack.
-                lastOperator = operator_stack[operatorStackSize - 1]
+                last_operator = operator_stack[operator_stack_size - 1]
 
                 # If token has lower or equal precedence than the last operator in the stack
                 # Pop all the operator stack and push to the output stack
                 # Then add the current operator to the operator stack
                 # Else, add the operator to the stack
                 if (token == "+" or token == "-"):
-                    if(is_operator(lastOperator)):
-                        while operatorStackSize:
+                    if(is_operator(last_operator)):
+                        while operator_stack_size:
                             output_stack.append(operator_stack.pop())
-                            operatorStackSize -= 1
+                            operator_stack_size -= 1
                         operator_stack.append(token)
                     else:
                         operator_stack.append(token)
@@ -57,16 +57,16 @@ def parse_to_rpn(expr: str) -> list:
                     break
 
             # Directly add the operator to the operator stack if empty.
-            if operatorStackEmpty:
+            if operator_stack_empty:
                 operator_stack.append(token)
 
-    remainingOp = len(operator_stack)
+    remaining_operator = len(operator_stack)
 
     # Push all the leftover operator to the output stack.
-    if remainingOp > 0:
-        while remainingOp > 0:
+    if remaining_operator > 0:
+        while remaining_operator > 0:
             output_stack.append(operator_stack.pop())
-            remainingOp -= 1
+            remaining_operator -= 1
 
     return output_stack
 
@@ -77,37 +77,37 @@ def evaluate_rpn(rpn: list) -> float:
     """
 
     # Final result will be here.
-    resultStack = list()
+    result_stack = list()
 
     for token in rpn:
         # To to stack if it is a number.
         if (is_number(token)):
-            resultStack.append(token)
+            result_stack.append(token)
 
         # Perform operation to last two operands.
         # Then push it to the stack.
         else:
             if token == "+":
-                resultStack.append(add(resultStack.pop(), resultStack.pop()))
+                result_stack.append(add(result_stack.pop(), result_stack.pop()))
             if token == "-":
                 # Number at the end of the stack should be the subtrahend.
-                y = resultStack.pop()
-                x = resultStack.pop()
-                resultStack.append(min(x, y))
+                y = result_stack.pop()
+                x = result_stack.pop()
+                result_stack.append(min(x, y))
             if token == "*":
-                resultStack.append(
-                    multiply(resultStack.pop(), resultStack.pop()))
+                result_stack.append(
+                    multiply(result_stack.pop(), result_stack.pop()))
             if token == "/":
                 # Number at the end of the stack should be the denominator.
-                denominator = resultStack.pop()
-                numerator = resultStack.pop()
-                resultStack.append(divide(numerator, denominator))
+                denominator = result_stack.pop()
+                numerator = result_stack.pop()
+                result_stack.append(divide(numerator, denominator))
 
     # There should only be one number left in the stack.
-    if len(resultStack) > 1:
+    if len(result_stack) > 1:
         raise ValueError("There is a compute error when parsing the notation.")
     else:
-        result = resultStack.pop()
+        result = result_stack.pop()
 
     return result
 
