@@ -15,12 +15,12 @@ def parse_to_rpn(expression: str) -> list:
     """
     output_stack = list()
     operator_stack = list()
-
+    
     tokens = expression.split(" ")
 
     for token in tokens:
         buffer = 0.0
-
+        
         try:
             # Send to the output stack if current 'token' is a number.
             buffer = float(token)
@@ -28,9 +28,9 @@ def parse_to_rpn(expression: str) -> list:
         except ValueError:
             pass
 
-        if is_operator(token):
+        operator_stack_size = len(operator_stack)
 
-            operator_stack_size = len(operator_stack)
+        if is_operator(token):
 
             # Check if operator stack is empty.
             operator_stack_empty = operator_stack_size == 0
@@ -43,8 +43,8 @@ def parse_to_rpn(expression: str) -> list:
                 # Pop all the operator stack and push to the output stack
                 # Then add the current operator to the operator stack
                 # Else, add the operator to the stack
-                if (token == "+" or token == "-"):
-                    if(is_operator(last_operator)):
+                if(is_operator(last_operator)):
+                    if not greater_precedence(token, last_operator):
                         while operator_stack_size:
                             output_stack.append(operator_stack.pop())
                             operator_stack_size -= 1
@@ -55,11 +55,19 @@ def parse_to_rpn(expression: str) -> list:
                 else:
                     operator_stack.append(token)
                     break
-
             # Directly add the operator to the operator stack if empty.
             if operator_stack_empty:
                 operator_stack.append(token)
-
+        elif token == "(":
+            operator_stack.append(token)
+        elif token == ")":
+            last_operator = operator_stack[operator_stack_size - 1]
+            while last_operator != "(":
+                output_stack.append(operator_stack.pop())
+                operator_stack_size = len(operator_stack)
+                last_operator = operator_stack[operator_stack_size - 1]
+            operator_stack.pop() # Removes '('
+    
     remaining_operator = len(operator_stack)
 
     # Push all the leftover operator to the output stack.
@@ -88,7 +96,8 @@ def evaluate_rpn(rpn: list) -> float:
         # Then push it to the stack.
         else:
             if token == "+":
-                result_stack.append(add(result_stack.pop(), result_stack.pop()))
+                result_stack.append(
+                    add(result_stack.pop(), result_stack.pop()))
             if token == "-":
                 # Number at the end of the stack should be the subtrahend.
                 y = result_stack.pop()
@@ -138,6 +147,11 @@ def is_operator(string: str) -> bool:
 
     return False
 
+def greater_precedence(operator1: str, operator2:str) -> bool:
+
+    operators = { "+": 0, "-": 0, "/": 1, "*": 1 }
+
+    return operators[operator1] > operators[operator2]
 
 def add(addend1: float, addend2: float) -> float:
     """
