@@ -61,8 +61,8 @@ class TestCalculatorClass(object):
         assert expectedResult == actualResult
 
     def test_parse_to_rpn(self):
+        
         # Arrange
-
         expected_results = [
             [6.0, 8.0, "/", 9.0, "+", 8.0, 10.0, "*", "-"],
             [3.0, 2.0, "*", 5.0, "+"],
@@ -92,28 +92,30 @@ class TestCalculatorClass(object):
 
     def test_evaluate_rpn(self):
 
-        # Arrange
-        # Case 1
-        expected_case_1 = -70.25
-        infix_case_1 = [6.0, 8.0, "/", 9.0, "+", 8.0, 10.0, "*", "-"]
-
-        # Case 2
-        expected_case_2 = 11.0
-        infix_case_2 = [3.0, 2.0, "*", 5.0, "+"]
+        # Arrange  
+        expected_results = [
+            -70.25,
+            11.0,
+            3.5
+        ]
         
-        # Case 3
-        expected_case_3 = 3.5
-        infix_case_3 = expected_case_4 = [0.5, 2.0, 4.0, "*", 1.0, "-", "*"]
+        rpns = [
+            [6.0, 8.0, "/", 9.0, "+", 8.0, 10.0, "*", "-"],
+            [3.0, 2.0, "*", 5.0, "+"],
+            [0.5, 2.0, 4.0, "*", 1.0, "-", "*"]
+        ]
 
-        # act
-        result_case_1 = mathematics.evaluate_rpn(infix_case_1)
-        result_case_2 = mathematics.evaluate_rpn(infix_case_2)
-        result_case_3 = mathematics.evaluate_rpn(infix_case_3)
+        actual_results = list()
 
-        # assert
-        assert result_case_1 == expected_case_1
-        assert result_case_2 == expected_case_2
-        assert result_case_3 == expected_case_3
+        # Act
+        for rpn in rpns:
+            actual_results.append(mathematics.evaluate_rpn(rpn))
+
+        # Assert
+        index = 0
+        for expected in expected_results:
+            assert actual_results[index] == expected
+            index += 1
 
     def test_is_number(self):
         # Arrange
