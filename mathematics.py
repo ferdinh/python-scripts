@@ -33,10 +33,10 @@ def parse_to_rpn(expression: str) -> list:
             # Check if operator stack is empty.
             operator_stack_empty = operator_stack_size == 0
 
-            if operator_stack_empty:
+            if not operator_stack:
                 operator_stack.append(token)
             else:
-                while operator_stack_size > 0:
+                while operator_stack:
                     # Get the last operator from the stack.
                     last_operator = operator_stack[operator_stack_size - 1]
 
@@ -46,32 +46,43 @@ def parse_to_rpn(expression: str) -> list:
                     # Else, add the operator to the stack
                     if(is_operator(last_operator)):
                         if not greater_precedence(token, last_operator):
-                            while operator_stack_size:
+                            while operator_stack and last_operator != "(":
+
                                 output_stack.append(operator_stack.pop())
-                                operator_stack_size -= 1
+                                operator_stack_size = len(operator_stack)
+
+                                if operator_stack:
+                                    last_operator = operator_stack[operator_stack_size - 1]
                             operator_stack.append(token)
+                            break
                         else:
                             operator_stack.append(token)
                             break
                     else:
                         operator_stack.append(token)
                         break
-                
+
         elif token == "(":
             operator_stack.append(token)
         elif token == ")":
             last_operator = operator_stack[operator_stack_size - 1]
+
             while last_operator != "(":
                 output_stack.append(operator_stack.pop())
                 operator_stack_size = len(operator_stack)
-                last_operator = operator_stack[operator_stack_size - 1]
+
+                if operator_stack_size > 1:
+                    last_operator = operator_stack[operator_stack_size - 1]
+                elif operator_stack_size == 1:
+                    last_operator = operator_stack[0]
+
             operator_stack.pop()  # Removes '('
 
     remaining_operator = len(operator_stack)
 
     # Push all the leftover operator to the output stack.
-    if remaining_operator > 0:
-        while remaining_operator > 0:
+    if operator_stack:
+        while operator_stack:
             output_stack.append(operator_stack.pop())
             remaining_operator -= 1
 
