@@ -15,17 +15,17 @@ def parse_to_rpn(expression: str) -> list:
     """
     output_stack = list()
     operator_stack = list()
-    
+
     tokens = expression.split(" ")
 
     for token in tokens:
-        
+
         operator_stack_size = len(operator_stack)
-        
+
         if is_number(token):
             buffer = float(token)
             output_stack.append(buffer)
-            
+
         elif is_operator(token):
 
             # Check if operator stack is empty.
@@ -62,8 +62,8 @@ def parse_to_rpn(expression: str) -> list:
                 output_stack.append(operator_stack.pop())
                 operator_stack_size = len(operator_stack)
                 last_operator = operator_stack[operator_stack_size - 1]
-            operator_stack.pop() # Removes '('
-    
+            operator_stack.pop()  # Removes '('
+
     remaining_operator = len(operator_stack)
 
     # Push all the leftover operator to the output stack.
@@ -143,11 +143,13 @@ def is_operator(string: str) -> bool:
 
     return False
 
-def greater_precedence(operator1: str, operator2:str) -> bool:
 
-    operators = { "+": 0, "-": 0, "/": 1, "*": 1 }
+def greater_precedence(operator1: str, operator2: str) -> bool:
+
+    operators = {"+": 0, "-": 0, "/": 1, "*": 1}
 
     return operators[operator1] > operators[operator2]
+
 
 def add(addend1: float, addend2: float) -> float:
     """
