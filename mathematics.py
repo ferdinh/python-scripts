@@ -19,18 +19,14 @@ def parse_to_rpn(expression: str) -> list:
     tokens = expression.split(" ")
 
     for token in tokens:
-        buffer = 0.0
         
-        try:
-            # Send to the output stack if current 'token' is a number.
+        operator_stack_size = len(operator_stack)
+        
+        if is_number(token):
             buffer = float(token)
             output_stack.append(buffer)
-        except ValueError:
-            pass
-
-        operator_stack_size = len(operator_stack)
-
-        if is_operator(token):
+            
+        elif is_operator(token):
 
             # Check if operator stack is empty.
             operator_stack_empty = operator_stack_size == 0
