@@ -31,29 +31,30 @@ def parse_to_rpn(expression: str) -> list:
             # Check if operator stack is empty.
             operator_stack_empty = operator_stack_size == 0
 
-            while operator_stack_size > 0:
-                # Get the last operator from the stack.
-                last_operator = operator_stack[operator_stack_size - 1]
+            if operator_stack_empty:
+                operator_stack.append(token)
+            else:
+                while operator_stack_size > 0:
+                    # Get the last operator from the stack.
+                    last_operator = operator_stack[operator_stack_size - 1]
 
-                # If token has lower or equal precedence than the last operator in the stack
-                # Pop all the operator stack and push to the output stack
-                # Then add the current operator to the operator stack
-                # Else, add the operator to the stack
-                if(is_operator(last_operator)):
-                    if not greater_precedence(token, last_operator):
-                        while operator_stack_size:
-                            output_stack.append(operator_stack.pop())
-                            operator_stack_size -= 1
-                        operator_stack.append(token)
+                    # If token has lower or equal precedence than the last operator in the stack
+                    # Pop all the operator stack and push to the output stack
+                    # Then add the current operator to the operator stack
+                    # Else, add the operator to the stack
+                    if(is_operator(last_operator)):
+                        if not greater_precedence(token, last_operator):
+                            while operator_stack_size:
+                                output_stack.append(operator_stack.pop())
+                                operator_stack_size -= 1
+                            operator_stack.append(token)
+                        else:
+                            operator_stack.append(token)
+                            break
                     else:
                         operator_stack.append(token)
                         break
-                else:
-                    operator_stack.append(token)
-                    break
-            # Directly add the operator to the operator stack if empty.
-            if operator_stack_empty:
-                operator_stack.append(token)
+                
         elif token == "(":
             operator_stack.append(token)
         elif token == ")":
