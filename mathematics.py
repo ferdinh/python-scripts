@@ -145,7 +145,11 @@ def is_operator(string: str) -> bool:
 
 
 def greater_precedence(operator1: str, operator2: str) -> bool:
+    """
+    Compare the precedence of two operators.
 
+    return: true if `operator1` has higher precedence than `operator2`
+    """
     operators = {"+": 0, "-": 0, "/": 1, "*": 1}
 
     return operators[operator1] > operators[operator2]
