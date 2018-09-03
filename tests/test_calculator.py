@@ -143,3 +143,23 @@ class TestCalculatorClass(object):
 
         for r in test_case_false_result:
             assert r == expected_test_case_false
+
+    def test_greater_precedence(self):
+        # Arrange
+        expected_test_case_1 = False
+        expected_test_case_2 = True
+
+        test_case_1_operator_1 = "+"
+        test_case_1_operator_2 = "-"
+
+        test_case_2_operator_1 = "*"
+        test_case_2_operator_2 = "+"
+
+        # Act
+        result_test_case_1 = mathematics.greater_precedence(test_case_1_operator_1, test_case_1_operator_2)
+        result_test_case_2 = mathematics.greater_precedence(test_case_2_operator_1, test_case_2_operator_2)
+
+        # Assert
+        assert result_test_case_1 == expected_test_case_1
+        assert result_test_case_2 == expected_test_case_2
+        
