@@ -12,6 +12,8 @@ def evaluate(expr: str) -> float:
 def parse_to_rpn(expression: str) -> list:
     """
     Converts infix notation to Reverse Polish Notation (RPN).
+
+    return: reverse polish notation of given `expression`.
     """
     output_stack = list()
     operator_stack = list()
