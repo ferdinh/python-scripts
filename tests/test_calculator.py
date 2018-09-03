@@ -62,34 +62,33 @@ class TestCalculatorClass(object):
 
     def test_parse_to_rpn(self):
         # Arrange
-        # Case 1
-        expected_case_1 = [6.0, 8.0, "/", 9.0, "+", 8.0, 10.0, "*", "-"]
-        infix_case_1 = "6 / 8 + 9 - 8 * 10"
 
-        # Case 2
-        expected_case_2 = [3.0, 2.0, "*", 5.0, "+"]
-        infix_case_2 = "3 * 2 + 5"
+        expected_results = [
+            [6.0, 8.0, "/", 9.0, "+", 8.0, 10.0, "*", "-"],
+            [3.0, 2.0, "*", 5.0, "+"],
+            [5.0, 10.0, "+", 9.0, "*", 8.0, "/"],
+            [0.5, 2.0, 4.0, "*", 1.0, "-", "*"]
+        ]
 
-        # Case 3 - with brackets to force precedence
-        expected_case_3 = [5.0, 10.0, "+", 9.0, "*", 8.0, "/"]
-        infix_case_3 = "( 5 + 10 ) * 9 / 8"
+        infix_notations = [
+            "6 / 8 + 9 - 8 * 10",
+            "3 * 2 + 5",
+            "( 5 + 10 ) * 9 / 8",
+            "0.5 * ( 2 * 4 - 1 )"
+        ]
 
-        # Case 3 - with brackets to force precedence
-        expected_case_4 = [0.5, 2.0, 4.0, "*", 1.0, "-", "*"]
-        infix_case_4 = "0.5 * ( 2 * 4 - 1 )"
+        actual_results = list()
 
-        # act
-        result_case_1 = mathematics.parse_to_rpn(infix_case_1)
-        result_case_2 = mathematics.parse_to_rpn(infix_case_2)
-        result_case_3 = mathematics.parse_to_rpn(infix_case_3)
-        result_case_4 = mathematics.parse_to_rpn(infix_case_4)
+        # Act
+        for notation in infix_notations:
+            actual_results.append(mathematics.parse_to_rpn(notation))
 
 
         # assert
-        assert result_case_1 == expected_case_1
-        assert result_case_2 == expected_case_2
-        assert result_case_3 == expected_case_3
-        assert result_case_4 == expected_case_4
+        index = 0
+        for result in expected_results:
+            assert actual_results[index] == result
+            index += 1
 
     def test_evaluate_rpn(self):
 
