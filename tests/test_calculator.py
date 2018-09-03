@@ -8,6 +8,7 @@ sys.path.append(rootdir)
 
 import mathematics
 
+
 class TestCalculatorClass(object):
 
     firstNumber = 10
@@ -18,9 +19,9 @@ class TestCalculatorClass(object):
         # arrange
         expectedResult = 15.5
 
-        # act 
+        # act
         actualResult = mathematics.add(self.firstNumber, self.secondNumber)
-        
+
         # assert
         assert expectedResult == actualResult
 
@@ -29,9 +30,9 @@ class TestCalculatorClass(object):
         # arrange
         expectedResult = 4.5
 
-        # act 
+        # act
         actualResult = mathematics.min(self.firstNumber, self.secondNumber)
-            
+
         # assert
         assert expectedResult == actualResult
 
@@ -40,10 +41,11 @@ class TestCalculatorClass(object):
         # arrange
         expectedResult = 1.818181818
 
-        # act 
+        # act
         # checks up to 9 decimal place accuracy
-        actualResult = round(mathematics.divide(self.firstNumber, self.secondNumber), 9)
-            
+        actualResult = round(mathematics.divide(
+            self.firstNumber, self.secondNumber), 9)
+
         # assert
         assert expectedResult == actualResult
 
@@ -51,14 +53,15 @@ class TestCalculatorClass(object):
         # arrange
         expectedResult = 55
 
-        # act 
-        actualResult = mathematics.multiply(self.firstNumber, self.secondNumber)
+        # act
+        actualResult = mathematics.multiply(
+            self.firstNumber, self.secondNumber)
 
         # assert
         assert expectedResult == actualResult
 
     def test_parse_to_rpn(self):
-        # Arrange  
+        # Arrange
         # Case 1
         expected_case_1 = [6.0, 8.0, "/", 9.0, "+", 8.0, 10.0, "*", "-"]
         infix_case_1 = "6 / 8 + 9 - 8 * 10"
@@ -77,7 +80,7 @@ class TestCalculatorClass(object):
 
     def test_evaluate_rpn(self):
 
-        #Arrange
+        # Arrange
         # Case 1
         expected_case_1 = -70.25
         infix_case_1 = [6.0, 8.0, "/", 9.0, "+", 8.0, 10.0, "*", "-"]
@@ -109,3 +112,28 @@ class TestCalculatorClass(object):
         # Assert
         assert result_case_1 == expected_case_1
         assert result_case_2 == expected_case_2
+
+    def test_is_operator(self):
+        # Arrange
+        expected_test_case_true = True
+        expected_test_case_false = False
+
+        test_case_true = ["+", "-", "*", "/"]
+        test_case_false = [ "**", "_", 9.0, "!"]
+
+        test_case_true_result = list()
+        test_case_false_result = list()
+
+        # Act
+        for op in test_case_true:
+            test_case_true_result.append(mathematics.is_operator(op))
+        
+        for op in test_case_false:
+            test_case_false_result.append(mathematics.is_operator(op))
+
+        # Assert
+        for r in test_case_true_result:
+            assert r == expected_test_case_true
+
+        for r in test_case_false_result:
+            assert r == expected_test_case_false
