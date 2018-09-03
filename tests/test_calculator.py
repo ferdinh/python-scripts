@@ -74,15 +74,22 @@ class TestCalculatorClass(object):
         expected_case_3 = [5.0, 10.0, "+", 9.0, "*", 8.0, "/"]
         infix_case_3 = "( 5 + 10 ) * 9 / 8"
 
+        # Case 3 - with brackets to force precedence
+        expected_case_4 = [0.5, 2.0, 4.0, "*", 1.0, "-", "*"]
+        infix_case_4 = "0.5 * ( 2 * 4 - 1 )"
+
         # act
         result_case_1 = mathematics.parse_to_rpn(infix_case_1)
         result_case_2 = mathematics.parse_to_rpn(infix_case_2)
         result_case_3 = mathematics.parse_to_rpn(infix_case_3)
+        result_case_4 = mathematics.parse_to_rpn(infix_case_4)
+
 
         # assert
         assert result_case_1 == expected_case_1
         assert result_case_2 == expected_case_2
         assert result_case_3 == expected_case_3
+        assert result_case_4 == expected_case_4
 
     def test_evaluate_rpn(self):
 
@@ -94,14 +101,20 @@ class TestCalculatorClass(object):
         # Case 2
         expected_case_2 = 11.0
         infix_case_2 = [3.0, 2.0, "*", 5.0, "+"]
+        
+        # Case 3
+        expected_case_3 = 3.5
+        infix_case_3 = expected_case_4 = [0.5, 2.0, 4.0, "*", 1.0, "-", "*"]
 
         # act
         result_case_1 = mathematics.evaluate_rpn(infix_case_1)
         result_case_2 = mathematics.evaluate_rpn(infix_case_2)
+        result_case_3 = mathematics.evaluate_rpn(infix_case_3)
 
         # assert
         assert result_case_1 == expected_case_1
         assert result_case_2 == expected_case_2
+        assert result_case_3 == expected_case_3
 
     def test_is_number(self):
         # Arrange
