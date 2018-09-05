@@ -18,7 +18,7 @@ def parse_to_rpn(expression: str) -> list:
     output_stack = list()
     operator_stack = list()
 
-    tokens = expression.split(" ")
+    tokens = tokenize(expression)
 
     for token in tokens:
 
@@ -126,6 +126,38 @@ def evaluate_rpn(rpn: list) -> float:
         result = result_stack.pop()
 
     return result
+
+def tokenize(expression: str) -> list:
+    """
+    Tokenize a string mathematical expression.
+
+    remarks: Does not check for context.
+
+    returns: list of math tokens.
+    """
+    math_tokens = list()
+    expression = expression.strip()
+
+    buffer = ""
+
+    for char in expression:
+        if(str.isdigit(char)):
+            buffer += char
+        elif (str.isspace(char)):
+            pass
+        elif (char == '.' or char == ','): # Decimal number
+            buffer += char
+        else:
+            if buffer != "":
+                math_tokens.append(buffer)
+                buffer = ""
+
+            math_tokens.append(char)
+
+    if buffer != "":
+        math_tokens.append(buffer)
+
+    return math_tokens
 
 
 def is_number(string: str) -> bool:
