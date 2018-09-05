@@ -61,7 +61,7 @@ class TestCalculatorClass(object):
         assert expectedResult == actualResult
 
     def test_parse_to_rpn(self):
-        
+
         # Arrange
         expected_results = [
             [6.0, 8.0, "/", 9.0, "+", 8.0, 10.0, "*", "-"],
@@ -85,7 +85,6 @@ class TestCalculatorClass(object):
         for notation in infix_notations:
             actual_results.append(mathematics.parse_to_rpn(notation))
 
-
         # assert
         index = 0
         for result in expected_results:
@@ -94,14 +93,14 @@ class TestCalculatorClass(object):
 
     def test_evaluate_rpn(self):
 
-        # Arrange  
+        # Arrange
         expected_results = [
             -70.25,
             11.0,
             3.5,
             1296.0
         ]
-        
+
         rpns = [
             [6.0, 8.0, "/", 9.0, "+", 8.0, 10.0, "*", "-"],
             [3.0, 2.0, "*", 5.0, "+"],
@@ -143,7 +142,7 @@ class TestCalculatorClass(object):
         expected_test_case_false = False
 
         test_case_true = ["+", "-", "*", "/"]
-        test_case_false = [ "**", "_", 9.0, "!"]
+        test_case_false = ["**", "_", 9.0, "!"]
 
         test_case_true_result = list()
         test_case_false_result = list()
@@ -151,7 +150,7 @@ class TestCalculatorClass(object):
         # Act
         for op in test_case_true:
             test_case_true_result.append(mathematics.is_operator(op))
-        
+
         for op in test_case_false:
             test_case_false_result.append(mathematics.is_operator(op))
 
@@ -174,10 +173,40 @@ class TestCalculatorClass(object):
         test_case_2_operator_2 = "+"
 
         # Act
-        result_test_case_1 = mathematics.greater_precedence(test_case_1_operator_1, test_case_1_operator_2)
-        result_test_case_2 = mathematics.greater_precedence(test_case_2_operator_1, test_case_2_operator_2)
+        result_test_case_1 = mathematics.greater_precedence(
+            test_case_1_operator_1, test_case_1_operator_2)
+        result_test_case_2 = mathematics.greater_precedence(
+            test_case_2_operator_1, test_case_2_operator_2)
 
         # Assert
         assert result_test_case_1 == expected_test_case_1
         assert result_test_case_2 == expected_test_case_2
+
+    def test_tokenize(self):
+        # Arrange
+        expected_test_case = [
+            ["5", "+", "5"],
+            ["1998", "*", "2018"],
+            ["(", "(", "5", "+", "4", ")", "*", "8", ")",
+             "*", "(", "8", "+", "10", ")"],
+            ["0.5", "*", "(", "2", "*", "4", "-", "1", ")"]
+        ]
+        expressions_to_test = [
+            "5+5",
+            "1998* 2018",
+            "((5 +4) *8 ) * (8 +10)",
+            " 0.5 * (2 * 4 -1 ) "
+        ]
         
+        results = []
+
+        # Act
+        for expression in expressions_to_test:
+            results.append(mathematics.tokenize(expression))
+        
+
+        # Assert
+        index = 0
+        for expected_token in expected_test_case:
+            assert expected_token == results[index]
+            index += 1
