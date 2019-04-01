@@ -26,3 +26,13 @@ while x == 0:
         print(utc.minute)
     else:
         x = 1
+def getTime(localization: TimeCoordinate = TimeCoordinate.Local) -> datetime:
+    """Get current datetime based on specified localization"""
+    currentTime: datetime
+
+    if localization == TimeCoordinate.UTC:
+        currentTime = datetime.datetime.utcnow()
+    elif localization == TimeCoordinate.Local:
+        currentTime = datetime.datetime.today()
+
+    return currentTime
