@@ -1,5 +1,13 @@
 # get today's and utc's date and time
 import datetime
+from enum import Enum
+
+
+class TimeCoordinate(Enum):
+    """Represent date localization."""
+    UTC = 1
+    Local = 2
+
 
 today = datetime.datetime.today()
 utc = datetime.datetime.utcnow()
